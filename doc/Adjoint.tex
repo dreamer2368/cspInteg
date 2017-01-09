@@ -271,7 +271,7 @@ Substituting these two terms, we obtain the dual expression for the sensitivity,
 + \int_0^T \partial_co\;dt
 }
 First term in the equation above is now the new constraint functional, i.e. the adjoint equation,
-and the other three terms are equivalent to the sensitivity $\nabla_\theta\cO$.
+and the other four terms are equivalent to the sensitivity $\nabla_\theta\cO$.
 As long as the adjoint equation equals to 0, $\partial_cx_i$ needs not be computed.
 Regarding the second term $x_i^{\dagger}\partial_cx_i$,
 we don't really have the information about $\partial_c\bx$ at $T$,
@@ -322,7 +322,8 @@ Therefore, the sensitivity $\nabla_\theta\cO$ can be computed by solving the fol
 }
 \item Adjoint equation
 \eqsp{}{
-\Dnorm{}{t}x_i^{\dagger} &= - \left[ \partial_iP_{kj}\cdot F_j + P_{kj}\cdot\partial_iF_j \right]x_k^{\dagger} + \partial_io\\
+\Dnorm{}{t}x_i^{\dagger} &= - \partial_i\left( P_{kj}F_j \right)\cdot x_k^{\dagger} + \partial_io\\
+&= - \left[ \partial_iP_{kj}\cdot F_j + P_{kj}\cdot\partial_iF_j \right]x_k^{\dagger} + \partial_io\\
 \partial_kP_{ij} &= -\partial_kV_{il}U_{lj} - V_{il}\partial_kU_{lj}\\
 \bx^{\dagger} &= 0\qquad\qquad \text{at }t=T
 \label{adj}
@@ -335,6 +336,9 @@ Therefore, the sensitivity $\nabla_\theta\cO$ can be computed by solving the fol
 \item Adjoint-based sensitivity
 \eqsp{}{
 \partial_c\cO &= - x_i^{\dagger}\partial_cx_i\bigg|_{t=0}
+- \inprod{x_i^{\dagger}}{\partial_c\left( P_{ij}F_j \right)}
++ \int_0^T \partial_co\;dt\\
+&= - x_i^{\dagger}\partial_cx_i\bigg|_{t=0}
 - \inprod{x_i^{\dagger}}{\partial_cP_{ij}F_j}
 - \inprod{x_i^{\dagger}}{P_{ij}\partial_cF_j}
 + \int_0^T \partial_co\;dt\\
@@ -347,7 +351,7 @@ Therefore, the sensitivity $\nabla_\theta\cO$ can be computed by solving the fol
 In solving the adjoint equation (\ref{adj}), we may first think of the same manifold-reduction as we do for the governing equation.
 That is, we can decompose $\bx^{\dagger}$ into slow and fast manifolds according to the matrix
 \eqsp{*}{
-- \left[ \partial_iP_{kj}\cdot F_j + P_{kj}\cdot\partial_iF_j \right],
+- \partial_i\left( P_{kj}F_j \right) = - \left[ \partial_iP_{kj}\cdot F_j + P_{kj}\cdot\partial_iF_j \right],
 }
 and reduce the system onto slow manifolds.\\
 Although, this procedure may not be necessary and rather redundant.
@@ -357,6 +361,15 @@ On the other hand, the adjoint system (\ref{adj}), although time-variant,
 it is basically a linear system.
 Of course I cannot guarantee that its stiffness is always smaller than that of the original nonlinear system.
 But I hope a direct time-integration for (\ref{adj}) may be possible in an efficient way,
-but simpler than just following the same decomposition for nonlinear systems.
+but simpler than just following the same decomposition for nonlinear systems.\\
+Another minor comment is regarding the derivatives $\nabla_x(\bP\cdot\bF)$ and $\nabla_{\theta}(\bP\cdot\bF)$. 
+Using automatic differentiation, I don't know which one will be more efficient and simple
+whether decomposing further the terms inside the parentheses or not.
+In other words, there are two options to compute the derivatives:
+\eqsp{*}{
+\nabla(\bP\cdot\bF)\\
+\text{or}\qquad\\
+\nabla\bP\cdot\bF + \bP\cdot&\nabla\bF
+}
 
 \end{document}
