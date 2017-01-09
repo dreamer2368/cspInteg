@@ -1,0 +1,362 @@
+\documentclass[11pt]{article}
+
+\usepackage[dvips]{graphicx}
+
+\usepackage{float}
+\usepackage{psfrag}
+\usepackage{amsmath,amssymb,overcite,rotating,dcolumn,texdraw,tabularx,colordvi}
+\usepackage[usenames]{color}
+\usepackage[nooneline,tight,raggedright]{subfigure}
+
+\usepackage{wrapfig}
+\usepackage{pstricks,enumerate}
+
+\usepackage[font=footnotesize,format=plain,labelfont=bf]{caption}
+
+\usepackage{hyperref}
+
+%\captionsetup{labelfont={color=Brown,bf},textfont={color=BurntOrange}}
+
+\definecolor{myTan}{rgb}{.7,0.4,.15}
+\captionsetup{labelfont={color=brown,bf},textfont={color=myTan}}
+
+\newcommand{\entry}[1]{\mbox{\sffamily\bfseries{#1:}}\hfil}%
+
+\setlength{\marginparwidth}{.65in}
+\def\margcomment#1{\Red{$\bullet$}\marginpar{\raggedright \Red{\tiny #1}}}
+
+\makeatletter
+\renewcommand{\section}{\@startsection
+{section}%
+{0}%
+{0mm}%
+{-0.35\baselineskip}%
+{0.01\baselineskip}%
+{\normalfont\Large\bfseries\color{brown}}}%
+\makeatother
+
+\makeatletter
+\renewcommand{\subsection}{\@startsection
+{subsection}%
+{1}%
+{0mm}%
+{-0.35\baselineskip}%
+{0.1\baselineskip}%
+{\normalfont\large\bfseries\color{brown}}}%
+\makeatother
+
+
+\makeatletter
+\renewcommand{\subsubsection}{\@startsection
+{subsubsection}%
+{1}%
+{0mm}%
+{-0.5\baselineskip}%
+{0.3\baselineskip}%
+{\normalfont\normalsize\itshape\centering}}%
+\makeatother
+
+%\renewcommand{\topfraction}{0.0}
+\renewcommand{\textfraction}{0.0}
+\renewcommand{\floatpagefraction}{0.7}
+
+
+\setlength{\oddsidemargin}{0.0in}
+\setlength{\textwidth}{6.5in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\footskip}{0.30in}
+\setlength{\textheight}{9.0in}
+\setlength{\headheight}{0.2in}
+\setlength{\headsep}{0.3in}
+
+\def\Dpartial#1#2{ \frac{\partial #1}{\partial #2} }
+\def\Dparttwo#1#2{ \frac{\partial^2 #1 }{ \partial #2^2} }
+\def\Dpartpart#1#2#3{ \frac{\partial^2 #1}{ \partial #2 \partial #3} }
+\def\Dnorm#1#2{ \frac{d #1 }{ d #2} }
+\def\Dnormtwo#1#2{ \frac{d^2 #1}{  d #2 ^2} }
+\def\Dtotal#1#2{ \frac{D #1 }{ D #2} }
+
+\def\eps{\varepsilon}
+
+\newcommand\eqsp[2]{
+\begin{equation#1}
+\begin{split}
+#2
+\end{split}
+\end{equation#1}
+}
+
+\newcommand{\cH}{\mathcal{H}}
+\newcommand{\cO}{\mathcal{O}}
+
+\newcommand{\dcJ}{\,\delta\mathcal{J}}
+
+\newcommand{\da}{\,\delta a}
+
+\newcommand{\bx}{\mathbf{x}}
+\newcommand{\bt}{\mathbf{\theta}}
+\newcommand{\bI}{\mathbf{I}}
+\newcommand{\bP}{\mathbf{P}}
+\newcommand{\bF}{\mathbf{F}}
+\newcommand{\bV}{\mathbf{V}}
+\newcommand{\bU}{\mathbf{U}}
+\newcommand{\bJ}{\mathbf{J}}
+
+\newcommand{\inprod}[2]{\left\langle #1,#2 \right\rangle}
+
+\newcommand{\hR}{{\hat{R}}}
+
+\newcommand{\vF}{{\vec{F}}}
+
+\newcommand{\dA}{{\,\delta A}}
+
+\newcommand{\us}{u^*}
+
+\newcommand{\bxi}{\boldsymbol{\xi}}
+
+\newcommand{\bbK}{\hat{\mathbb{K}}}
+
+\newcommand{\myint}{\int_0^L\int_0^{t_1}}
+\newcommand{\dxdt}{\; dxdt}
+
+\def\bdash{\hbox{\drawline{4}{.5}\spacce{2}}}
+\def\spacce#1{\hskip #1pt}
+\def\drawline#1#2{\raise 2.5pt\vbox{\hrule width #1pt height #2pt}}
+\def\dashed{\bdash\bdash\bdash\bdash\nobreak\ }
+\def\solid{\drawline{24}{.5}\nobreak\ }
+\def\square{${\vcenter{\hrule height .4pt 
+              \hbox{\vrule width .4pt height 3pt \kern 3pt \vrule width .4pt}
+          \hrule height .4pt}}$\nobreak\ }
+\def\solidsquare{${\vcenter{\hrule height 3pt width 3pt}}$\nobreak\ }
+
+
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+
+ \renewcommand{\topfraction}{0.9}
+    \renewcommand{\bottomfraction}{0.8}	
+    \setcounter{topnumber}{2}
+    \setcounter{bottomnumber}{2}
+    \setcounter{totalnumber}{4}     % 2 may work better
+    \setcounter{dbltopnumber}{2}    % for 2-column pages
+    \renewcommand{\dbltopfraction}{0.9}	% fit big float above 2-col. text
+    \renewcommand{\textfraction}{0.07}	% allow minimal text w. figs
+    \renewcommand{\floatpagefraction}{0.7}	% require fuller float pages
+    \renewcommand{\dblfloatpagefraction}{0.7}	% require fuller float pages
+
+\setlength{\parindent}{0.25in}
+\setlength{\parskip}{2.0ex}
+
+\title{Adjoint formulation for manifold-reduced system}
+\author{Seung Whan Chung}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+
+\subsection*{Original governing equation}
+We refer to the original governing equation as a priori projected system:
+\eqsp{}{
+\Dnorm{\bx}{t} &= \bP(\bx;\bt)\cdot\bF(\bx;\bt)\\
+\bP(\bx;\bt) &= \bI - \bV_f\bU_f\\
+\bJ = \nabla_x\bF &= 
+\begin{bmatrix}
+\bV_s & \bV_f
+\end{bmatrix}
+\begin{bmatrix}
+\Lambda_{ss} & 0 \\
+0 & \Lambda_{ff} \\
+\end{bmatrix}
+\begin{bmatrix}
+\bU_s \\
+\bU_f
+\end{bmatrix}
+\label{e1}
+}
+where $\bt\in \mathbb{R}^{N_c}$ is the control parameter. For other notations, refer to the original document.
+
+\subsection*{Observable and its sensitivity}
+We have the observable as a functional of state variable $\bx$:
+\eqsp{*}{
+\cO[\bx] = \int_0^T o(\bx) dt,
+}
+and we would like to measure its sensitivity to control parameters,
+\eqsp{}{
+\nabla_{\bt}\cO &= \int_0^T \nabla_xo\cdot\nabla_{\bt}\bx\;dt + \int_0^T \nabla_{\bt}o\;dt\\
+&= \inprod{\nabla_xo}{\nabla_{\bt}\bx} + \int_0^T \nabla_{\bt}o\;dt,
+\label{e2}
+}
+where the inner product is defined on $\mathbb{R}^{N}$,
+\eqsp{*}{
+\inprod{\mathbf{a}}{\mathbf{b}} = \int_0^T a_ib_i\;dt
+}
+with Einstein notation for indices.
+
+\subsection*{Sensitivity equation}
+To obtain the sensitivity (\ref{e2}), the sensitivity of the solution $\nabla_{\bt}\bx$ needs to be computed.
+It can be obtained by solving the linearized equation from (\ref{e1}).
+From now on the equations are expressed in index notation to avoid the ambiguity.
+\begin{itemize}
+\item $i$, $j$, $k$: the index on $\mathbb{R}^N$ space
+\item $c$: the index on control space $\mathbb{R}^{N_c}$
+\item $l$: the index on fast manifold space $\mathbb{R}^{N_f}$
+\end{itemize}
+\eqsp{}{
+\Dnorm{}{t}\partial_cx_i &= \partial_c\left( P_{ij}F_j \right)\\
+&= \partial_k\left( P_{ij}F_j \right)\partial_cx_k + \partial_c\left( P_{ij}F_j \right)\\
+&= \left[ \partial_kP_{ij}\cdot F_j + P_{ij}\cdot\partial_kF_j \right]\partial_cx_k + \partial_cP_{ij}F_j + P_{ij}\partial_cF_j
+\label{e3}
+}
+\eqsp{}{
+\partial_kP_{ij} &= -\partial_kV_{il}U_{lj} - V_{il}\partial_kU_{lj}\\
+\partial_cP_{ij} &= -\partial_cV_{il}U_{lj} - V_{il}\partial_cU_{lj}\\
+\label{e4}
+}
+
+\subsection*{Adjoint formulation}
+We define a constraint functional $\cH$ as the inner product of adjoint variable and (\ref{e3}),
+\eqsp{}{
+\cH &= \inprod{\bx^{\dagger}}{\Dnorm{}{t}\partial_cx_i - \left[ \partial_kP_{ij}\cdot F_j + P_{ij}\cdot\partial_kF_j \right]\partial_cx_k - \partial_cP_{ij}F_j - P_{ij}\partial_cF_j }\\
+&\equiv 0.
+\label{e5}
+}
+Since $\cH$ is always equivalent to 0 as (\ref{e3}) holds, we add (\ref{e5}) to the sensitivity (\ref{e2}),
+\eqsp{*}{
+\nabla_{\bt}\cO &= \inprod{\nabla_xo}{\nabla_{\bt}\bx} + \int_0^T \nabla_{\bt}o\;dt = \inprod{\nabla_xo}{\nabla_{\bt}\bx} + \cH + \int_0^T \nabla_{\bt}o\;dt
+}
+which can be expressed in index-wise notation,
+\eqsp{*}{
+\nabla_{\bt}\cO &= \inprod{\nabla_xo}{\nabla_{\bt}\bx} + \cH + \int_0^T \nabla_{\bt}o\;dt\\
+&= \inprod{\partial_io}{\partial_cx_i}
++ \inprod{x_i^{\dagger}}{\Dnorm{}{t}\partial_cx_i}
+- \inprod{x_i^{\dagger}}{\left[ \partial_kP_{ij}\cdot F_j + P_{ij}\cdot\partial_kF_j \right]\partial_cx_k}\\
+&\qquad\qquad\qquad - \inprod{x_i^{\dagger}}{\partial_cP_{ij}F_j} - \inprod{x_i^{\dagger}}{P_{ij}\partial_cF_j} + \int_0^T \partial_co\;dt
+}
+Our purpose of adjoint formulation is to avoid calculation of $\partial_cx_k$.
+The adjoint formulation is required for first two terms of $\cH$:
+\begin{itemize}
+\item $\inprod{x_i^{\dagger}}{\Dnorm{}{t}\partial_cx_i}$
+\eqsp{*}{
+\inprod{x_i^{\dagger}}{\Dnorm{}{t}\partial_cx_i} &= \int_0^T x_i^{\dagger}\Dnorm{}{t}\partial_cx_i\;dt\\
+&= x_i^{\dagger}\partial_cx_i\bigg|_{0}^{T} - \int_0^T \Dnorm{}{t}x_i^{\dagger}\partial_cx_i\;dt\\
+&= x_i^{\dagger}\partial_cx_i\bigg|_{0}^{T} - \inprod{\Dnorm{}{t}x_i^{\dagger}}{\partial_cx_i}
+}
+\item $\inprod{x_i^{\dagger}}{\left[ \partial_kP_{ij}\cdot F_j + P_{ij}\cdot\partial_kF_j \right]\partial_cx_k}$
+\eqsp{*}{
+&\inprod{x_i^{\dagger}}{\left[ \partial_kP_{ij}\cdot F_j + P_{ij}\cdot\partial_kF_j \right]\partial_cx_k}\\
+&= \int_0^T x_i^{\dagger}\left[ \partial_kP_{ij}\cdot F_j + P_{ij}\cdot\partial_kF_j \right]\partial_cx_k\;dt\\
+&= \int_0^T x_k^{\dagger}\left[ \partial_iP_{kj}\cdot F_j + P_{kj}\cdot\partial_iF_j \right]\partial_cx_i\;dt\\
+&= \inprod{ \left[ \partial_iP_{kj}\cdot F_j + P_{kj}\cdot\partial_iF_j \right]x_k^{\dagger} }{ \partial_cx_i }
+}
+where nothing except the index exchange between $i$ and $k$ has been done,
+which corresponds to the transpose of the matrix $\in\mathbb{R}^N\times\mathbb{R}^N$.
+\end{itemize}
+Substituting these two terms, we obtain the dual expression for the sensitivity,
+\eqsp{*}{
+\nabla_{\bt}\cO &= \inprod{\nabla_xo}{\nabla_{\bt}\bx} + \cH + \int_0^T \nabla_{\bt}o\;dt\\
+&= \inprod{\partial_io}{\partial_cx_i}
++ \inprod{x_i^{\dagger}}{\Dnorm{}{t}\partial_cx_i}
+- \inprod{x_i^{\dagger}}{\left[ \partial_kP_{ij}\cdot F_j + P_{ij}\cdot\partial_kF_j \right]\partial_cx_k}\\
+&\qquad\qquad\qquad - \inprod{x_i^{\dagger}}{\partial_cP_{ij}F_j} - \inprod{x_i^{\dagger}}{P_{ij}\partial_cF_j} + \int_0^T \partial_co\;dt\\
+&= \inprod{\partial_io}{\partial_cx_i}
+- \inprod{\Dnorm{}{t}x_i^{\dagger}}{\partial_cx_i}
+- \inprod{ \left[ \partial_iP_{kj}\cdot F_j + P_{kj}\cdot\partial_iF_j \right]x_k^{\dagger} }{ \partial_cx_i }\\
+&\qquad +x_i^{\dagger}\partial_cx_i\bigg|_{0}^{T}
+- \inprod{x_i^{\dagger}}{\partial_cP_{ij}F_j}
+- \inprod{x_i^{\dagger}}{P_{ij}\partial_cF_j}
++ \int_0^T \partial_co\;dt\\
+&= \inprod{-\Dnorm{}{t}x_i^{\dagger} - \left[ \partial_iP_{kj}\cdot F_j + P_{kj}\cdot\partial_iF_j \right]x_k^{\dagger} + \partial_io }{\partial_cx_i}\\
+&\qquad +x_i^{\dagger}\partial_cx_i\bigg|_{0}^{T}
+- \inprod{x_i^{\dagger}}{\partial_cP_{ij}F_j}
+- \inprod{x_i^{\dagger}}{P_{ij}\partial_cF_j}
++ \int_0^T \partial_co\;dt
+}
+First term in the equation above is now the new constraint functional, i.e. the adjoint equation,
+and the other three terms are equivalent to the sensitivity $\nabla_\theta\cO$.
+As long as the adjoint equation equals to 0, $\partial_cx_i$ needs not be computed.
+Regarding the second term $x_i^{\dagger}\partial_cx_i$,
+we don't really have the information about $\partial_c\bx$ at $T$,
+nor use the final condition of $\bx$ as a control parameter.
+This provides us with the final condition for $\bx^{\dagger}$,
+\eqsp{*}{
+\bx^{\dagger} = 0\qquad\qquad \text{at }t=T
+}
+Therefore, the sensitivity $\nabla_\theta\cO$ can be computed by solving the following adjoint system:
+\eqsp{*}{
+\Dnorm{}{t}x_i^{\dagger} &= - \left[ \partial_iP_{kj}\cdot F_j + P_{kj}\cdot\partial_iF_j \right]x_k^{\dagger} + \partial_io\\
+\partial_kP_{ij} &= -\partial_kV_{il}U_{lj} - V_{il}\partial_kU_{lj}\\
+\bx^{\dagger} &= 0\qquad\qquad \text{at }t=T
+}
+\eqsp{*}{
+\partial_c\cO &= - x_i^{\dagger}\partial_cx_i\bigg|_{t=0}
+- \inprod{x_i^{\dagger}}{\partial_cP_{ij}F_j}
+- \inprod{x_i^{\dagger}}{P_{ij}\partial_cF_j}
++ \int_0^T \partial_co\;dt\\
+\partial_cP_{ij} &= -\partial_cV_{il}U_{lj} - V_{il}\partial_cU_{lj}
+}
+
+\subsection*{Summary}
+\begin{itemize}
+\item Governing equation
+\eqsp{}{
+\Dnorm{\bx}{t} &= \bP(\bx;\bt)\cdot\bF(\bx;\bt)\\
+\bP(\bx;\bt) &= \bI - \bV_f\bU_f\\
+\bJ = \nabla_x\bF &= 
+\begin{bmatrix}
+\bV_s & \bV_f
+\end{bmatrix}
+\begin{bmatrix}
+\Lambda_{ss} & 0 \\
+0 & \Lambda_{ff} \\
+\end{bmatrix}
+\begin{bmatrix}
+\bU_s \\
+\bU_f
+\end{bmatrix}
+\label{g}
+}
+\item Observable and its sensitivity
+\eqsp{}{
+\cO[\bx;\bt] &= \int_0^T o(\bx;\bt) dt\\
+\nabla_{\bt}\cO &= \inprod{\nabla_xo}{\nabla_{\bt}\bx} + \int_0^T \nabla_{\bt}o\;dt
+\label{o}
+}
+\item Adjoint equation
+\eqsp{}{
+\Dnorm{}{t}x_i^{\dagger} &= - \left[ \partial_iP_{kj}\cdot F_j + P_{kj}\cdot\partial_iF_j \right]x_k^{\dagger} + \partial_io\\
+\partial_kP_{ij} &= -\partial_kV_{il}U_{lj} - V_{il}\partial_kU_{lj}\\
+\bx^{\dagger} &= 0\qquad\qquad \text{at }t=T
+\label{adj}
+}
+\begin{itemize}
+\item $i$, $j$, $k$: the index on $\mathbb{R}^N$ space
+\item $c$: the index on control space $\mathbb{R}^{N_c}$
+\item $l$: the index on fast manifold space $\mathbb{R}^{N_f}$
+\end{itemize}
+\item Adjoint-based sensitivity
+\eqsp{}{
+\partial_c\cO &= - x_i^{\dagger}\partial_cx_i\bigg|_{t=0}
+- \inprod{x_i^{\dagger}}{\partial_cP_{ij}F_j}
+- \inprod{x_i^{\dagger}}{P_{ij}\partial_cF_j}
++ \int_0^T \partial_co\;dt\\
+\partial_cP_{ij} &= -\partial_cV_{il}U_{lj} - V_{il}\partial_cU_{lj}
+\label{adj_grad}
+}
+\end{itemize}
+
+\subsection*{Comments on solving the adjoint equation}
+In solving the adjoint equation (\ref{adj}), we may first think of the same manifold-reduction as we do for the governing equation.
+That is, we can decompose $\bx^{\dagger}$ into slow and fast manifolds according to the matrix
+\eqsp{*}{
+- \left[ \partial_iP_{kj}\cdot F_j + P_{kj}\cdot\partial_iF_j \right],
+}
+and reduce the system onto slow manifolds.\\
+Although, this procedure may not be necessary and rather redundant.
+On this matter you should have a better knowledge,
+but I guess manifold reduction is usually required for a nonlinear system which is very stiff until it reaches the slow manifolds.
+On the other hand, the adjoint system (\ref{adj}), although time-variant,
+it is basically a linear system.
+Of course I cannot guarantee that its stiffness is always smaller than that of the original nonlinear system.
+But I hope a direct time-integration for (\ref{adj}) may be possible in an efficient way,
+but simpler than just following the same decomposition for nonlinear systems.
+
+\end{document}
